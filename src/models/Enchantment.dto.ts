@@ -1,14 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
-export class Enchantment {
 
-    @PrimaryGeneratedColumn()
-    id: number
-
-    @Column("varchar", {length:63})
+export default class Enchantment {
     enchantment: string;
-
-    @Column("int")
     level: number;
 }

@@ -1,8 +1,9 @@
 import { EntityRepository, Repository } from "typeorm";
-import { Enchantment } from "../models/Enchantment.dto";
+import {EnchantmentEntity} from '../models/Enchantment.entity'
+import Enchantment from "../models/Enchantment.dto";
 
-@EntityRepository(Enchantment)
-export class EnchantmentRepository extends Repository<Enchantment> {
+@EntityRepository(EnchantmentEntity)
+export class EnchantmentRepository extends Repository<EnchantmentEntity> {
 
     /**
      * 
@@ -11,8 +12,8 @@ export class EnchantmentRepository extends Repository<Enchantment> {
      * 
      * @return -1 if not found and the ID of the thing if found
      */
-    async exists(enchantment : string, level: number) : Promise<number> {
-        const found = await this.findOne({select: ['id'],where: {enchantment, level}}).catch((err: Error) => {console.log(err.message)})
+    async exists(enchantment: Enchantment) : Promise<number> {
+        const found = await this.findOne({select: ['id'],where: {enchantment: enchantment.enchantment, level: enchantment.level}}).catch((err: Error) => {console.log(err.message)})
         if (found) {
             return found.id;
         }
