@@ -11,7 +11,7 @@ export class ItemRepository extends Repository<ItemEntity> {
         const result = await this.createQueryBuilder("item")
             .select("COUNT(*) > 0", "itemExists")
             .innerJoin("item.enchantments", "enchantments")
-            .where("enchantment.level = :level", {})
+            .where("enchantments.level IN (:...propertyValueIds)", {})
             .getRawOne();
         if (found) {
             return found.id;
